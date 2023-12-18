@@ -1,0 +1,19 @@
+users:
+- age: 38
+  name: Ted
+  social:
+    facebook: https://facebook.com
+    twitter: https://twitter.com
+  type: legend
+- age: 23
+  name: Sonic
+  social:
+    facebook: https://facebook.com
+    twitter: https://twitter.com
+  type: blogger
+- age: 30
+  name: Aloy
+  social:
+    facebook: https://facebook.com
+    twitter: https://twitter.com
+  type: Outlander

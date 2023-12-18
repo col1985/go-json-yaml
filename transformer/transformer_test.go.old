@@ -1,0 +1,26 @@
+package transformer
+
+import (
+	"testing"
+
+	"./transformer"
+)
+
+
+func TestTransformerJsonToYaml(t *testing.T) {
+	j := []byte(`{"name": "John", "age": 30}`)
+
+	yaml, err := transformer.ToYaml(j)
+
+	if err != nil {
+		t.Fatalf(`Transformer.toJSON %v, error`, err)
+	}
+
+	if yaml == nil {
+		t.Fatalf(`Transformer.toJSON %v, yaml output is nil`, yaml)
+	}
+}
+
+func TestTransformerYamlToJson(t *testing.T) {
+
+}

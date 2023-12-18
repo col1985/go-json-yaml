@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "name": "Sonic",
+      "type": "legend",
+      "age": 38,
+      "social": {
+        "facebook": "https://facebook.com",
+        "twitter": "https://twitter.com"
+      }
+    },
+    {
+      "name": "Ted",
+      "type": "blogger",
+      "age": 23,
+      "social": {
+        "facebook": "https://facebook.com",
+        "twitter": "https://twitter.com"
+      }
+    },
+    {
+      "name": "Jim Bob",
+      "type": "reader",
+      "age": 23,
+      "social": {
+        "facebook": "https://facebook.com",
+        "twitter": "https://twitter.com"
+      }
+    }
+  ]
+}
