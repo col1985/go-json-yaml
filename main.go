@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"example.com/transformer"
 	"example.com/utils"
@@ -46,12 +45,9 @@ func main() {
 	if err != nil {
 		log.Println("Error: reading contents of: ", file)
 		log.Fatal(err)
-		os.Exit(1)
 	}
 
 	yaml := getYAMLFromJSON(jsonData)
 	printOutput(string(yaml))
 
-	// json := getJSONFromYAML()
-	// printOutput(string(json))
 }

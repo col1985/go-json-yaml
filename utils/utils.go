@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+
+	"sigs.k8s.io/yaml"
 )
 
 type Users struct {
@@ -29,13 +31,19 @@ func (m *CustomError) Error() string {
 	return "Cannot open file, nil value returned."
 }
 
-func HandleStructuredJson(jsonFile *os.File) Users {
+func HandleStructured(jsonFile *os.File, fileType string) Users {
 	byteValue, _ := io.ReadAll(jsonFile)
 
 	var users Users
 
-	// unmarshall file  contents to users variable
-	json.Unmarshal(byteValue, &users)
+	if fileType == "json" {
+		// unmarshall file  contents to users variable
+		json.Unmarshal(byteValue, &users)
+	} else if fileType == "yaml" {
+		yaml.Unmarshal(byteValue, &users)
+	} else {
+		fmt.Println("Error: unsupported fileType")
+	}
 
 	for i := 0; i < len(users.Users); i++ {
 		fmt.Println("User Type: " + users.Users[i].Type)
@@ -76,7 +84,7 @@ func OpenJsonFileStructured(fileName string) (Users, error) {
 
 		defer jsonFile.Close()
 
-		return HandleStructuredJson(jsonFile), nil
+		return HandleStructured(jsonFile, "json"), nil
 	}
 
 	return Users{}, &CustomError{}
@@ -86,17 +94,40 @@ func OpenJsonFileUnstructured(fileName string) ([]byte, error) {
 	jsonFile, err := os.Open(fileName)
 
 	if err != nil {
-		fmt.Println("Error: opening json file: v%", fileName)
+		fmt.Printf("Error: opening json file: %v", fileName)
 		return nil, err
 	}
 
 	if jsonFile != nil {
-		fmt.Println("Opened file: v%", jsonFile.Name())
+		fmt.Printf("Opened file: %v", jsonFile.Name())
 
 		defer jsonFile.Close()
 
 		return HandleUnstructuredJson(jsonFile), nil
 	}
 
+	return nil, &CustomError{}
+}
+
+func OpenYamlFileStructured(fileName string) (Users, error) {
+	yamlFile, err := os.Open(fileName)
+
+	if err != nil {
+		fmt.Printf("Error: opening yaml file: %v", fileName)
+		return Users{}, err
+	}
+
+	if yamlFile != nil {
+		fmt.Printf("Opened file: %v", yamlFile.Name())
+
+		defer yamlFile.Close()
+
+		return HandleStructured(yamlFile, "yaml"), nil
+	}
+
+	return Users{}, &CustomError{}
+}
+
+func OpenYamlFileUnstructurd(fileName string) ([]byte, error) {
 	return nil, &CustomError{}
 }
