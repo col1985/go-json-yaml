@@ -31,6 +31,10 @@ func (m *CustomError) Error() string {
 	return "Cannot open file, nil value returned."
 }
 
+func MarshallInput() Users {
+
+}
+
 func HandleStructured(jsonFile *os.File, fileType string) Users {
 	byteValue, _ := io.ReadAll(jsonFile)
 
@@ -75,12 +79,12 @@ func OpenJsonFileStructured(fileName string) (Users, error) {
 	jsonFile, err := os.Open(fileName)
 
 	if err != nil {
-		fmt.Println("Error: opening json file: v%", fileName)
+		fmt.Printf("Error: opening json file: %v", fileName)
 		return Users{}, err
 	}
 
 	if jsonFile != nil {
-		fmt.Println("Opened file: v%", jsonFile.Name())
+		fmt.Printf("Opened file: %v", jsonFile.Name())
 
 		defer jsonFile.Close()
 
